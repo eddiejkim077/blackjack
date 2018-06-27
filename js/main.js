@@ -55,27 +55,6 @@ function initialize() {
     bankroll = 1000;
     render();
 };
-function render() {
-    betEl.textContent = betAmount;
-    bankrollEl.textContent = bankroll;
-    renderHands();
-    betControlsEl.style.visibility = handInProgress ? 'hidden' : 'visible';
-    gameControlsEl.style.visibility = handInProgress ? 'visible' : 'hidden';
-    betAmount === 0 ? dealBtnEl.setAttribute('disabled', 'disabled') : dealBtnEl.removeAttribute('disabled');
-    if (blackjack) {
-        messageEl.textContent - `${nameLookup[blackjack]} Has Blackjack!`;
-    } else if (winner) {
-        if (winner === 'T') {
-            messageEl.textContent = `Push!!`;
-            messageEl.style.color = 'purple';
-        } else {
-            messageEl.textContent = `${nameLookup[winner]} Wins!`;
-            messageEl.style.color = winner === 'P' ? 'yellow' : 'maroon';
-        }
-    } else {
-        messageEl.textContent = '';
-    }
-};  
 function handleUpdateScore(diff, disabled) {
     betAmount += diff;
     if (betAmount < 0) {
@@ -85,6 +64,22 @@ function handleUpdateScore(diff, disabled) {
         document.querySelector('.deal').disabled = false;
     }
     render();
+};
+function checkBlackJack(){
+    if (playerSum === 21 && dealerSum === 21){
+        winner = 'T';
+        betAmount = 0;
+        handInProgress = false;
+    } else if (playerSum === 21) {
+        blackjack = 'P';
+        bankroll  += ((bet * 1.5) + bet);
+        betAmount = 0;
+        handInProgress = false;
+    } else if (dealerSum === 21) {
+        blackjack = 'D';
+        handInProgress = false;
+        betAmount = 0;
+    }
 };
 function buildMasterDeck() {
     var deck = [];
@@ -98,7 +93,7 @@ function buildMasterDeck() {
     });
     return deck;
 };
-function shuffleDeck(){
+function shuffleDeck() {
     var tempDeck = masterDeck.slice();
     shuffledDeck = [];
     while (tempDeck.length) {
@@ -107,11 +102,14 @@ function shuffleDeck(){
     }
 }
 function handleDeal() {
-    shuffleDeck();  
+    shuffleDeck();
     handInProgress = true;
     winner = blackjack = null;
     playerHand = shuffledDeck.splice(0, 2);
     dealerHand = shuffledDeck.splice(0, 2);
+    playerSum = computeHand(playerHand);
+    dealerSum = computeHand(dealerHand);
+    checkBlackJack();
     render();
 };
 function handleHit() {
@@ -143,14 +141,12 @@ function handleStand() {
 };
 function dealerPlay() {
     while (computeHand(dealerHand) < 17) {
-        deal(dealerHand,1);
+        deal(dealerHand, 1);
     }
-}
-
+};
 function deal(hand, numCards) {
     hand.push(...shuffledDeck.splice(0, numCards));
 };
-
 function computeHand(hand) {
     var sum = 0;
     var aces = 0;
@@ -168,24 +164,6 @@ function computeHand(hand) {
     }
     return sum;
 };
-
-
-//hand and get the number of cards general purpose function deal 
-//and took in hand && num of cards. 
-//
-
-
-// function computeHand(){
-//function computeHand(hand){
-//Loop through cards in hand
-//-Inside the loop add value of card to sum
-//-If card is an Ace,Increase Ace Count
-//While sum > 21 && Ace count.
-//-Sum -= 10, reduce ace count -- 
-//return sum 
-// }
-
-
 function renderHands() {
     if (!playerHand) {
         return;
@@ -204,9 +182,28 @@ function renderHands() {
     }, '');
     dealerCardsEl.innerHTML = cardsHtml;
 };
-
-
-
+function render() {
+    betEl.textContent = betAmount;
+    bankrollEl.textContent = bankroll;
+    renderHands();
+    betControlsEl.style.visibility = handInProgress ? 'hidden' : 'visible';
+    gameControlsEl.style.visibility = handInProgress ? 'visible' : 'hidden';
+    betAmount === 0 ? dealBtnEl.setAttribute('disabled', 'disabled') : dealBtnEl.removeAttribute('disabled');
+    if (blackjack) {
+        messageEl.textContent = `${nameLookup[blackjack]} Has Blackjack!`;
+        messageEl.style.color = 'gold';
+    } else if (winner) {
+        if (winner === 'T') {
+            messageEl.textContent = `Push!`;
+            messageEl.style.color = 'purple';
+        } else {
+            messageEl.textContent = `${nameLookup[winner]} Wins!`;
+            messageEl.style.color = winner === 'P' ? 'yellow' : 'maroon';
+        } 
+    } else {
+        messageEl.textContent = '';
+    }
+};
 initialize();
 
-//stand function correctly, 
+        //stand function correctly, 
