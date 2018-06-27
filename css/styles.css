@@ -28,8 +28,6 @@ body {
     font-size: 20px;
 }
 
-
-
 .between { 
    width: 40%;
    height: 200px;
@@ -47,7 +45,7 @@ body {
 .game-controls {
     color:black;
     text-align: center;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 .bankroll{
     text-align: center;
@@ -56,6 +54,15 @@ body {
     text-align:center;
     margin-top: 30px;
 }
+
+#message {
+    text-align: center;
+    color: maroon;
+}
+
+
+
+/* Ice box: casino green table background  */
 
 /* inline block wrapped in div 
 
