@@ -9,22 +9,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <link href="css/card-deck-css/css/cardstarter.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Rancho" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     <script defer src="js/main.js"></script>
 </head>
 
 <body>
-    <embed src="https://freesound.org/data/previews/100/100841_230160-lq.mp3" autostart="true" loop="true" width="2" height="0">
-    </embed>
-    <h1>BlackJack</h1>
     <div class="dealer">
         <h2>Dealer</h2>
         <section class="dealer-cards"></section>
     </div>
 
     <div class="between">
-        <h2 class="bankroll">$$$: <span></span></h2>
+        <h1 id="heading">Blackjack</h1>
+        <h2 class="bankroll">Bankroll: <span></span></h2>
         <h2 id="bet-amt">Bet Amount: <span></span></h2>
+        <br>
         <h2 id="message"></h2>
     </div>
     
@@ -33,9 +32,17 @@
         <section class="player-cards"></section>
     </div>
     <div class="bet-controls">  
-        <button class="deal btn btn-dark">Deal</button>
-        <button id="inc-btn" class="btn btn-dark">Increase Bet</button>
-        <button id="dec-btn" class="btn btn-dark">Decrease Bet</button>
+        <button class="deal btn btn-dark">
+            <img id="deal-img" src="https://i.imgur.com/65TlEcG.png">
+        </button>
+        <button id="inc-btn" class="btn btn-dark">
+            <img id ="inc-img" src="https://i.imgur.com/fM4bC1H.png">
+            <audio id="audio" src="https://freesound.org/data/previews/201/201805_3745836-lq.mp3" autoplay="false"></audio>
+            <a onclick ="playSound();">
+        </button>
+        <button id="dec-btn" class="btn btn-dark">
+            <img id="dec-img" src="https://i.imgur.com/CKp8UUq.png">
+        </button>
     </div>
     <div class="game-controls">
         <button class="hit btn btn-dark">Hit</button>

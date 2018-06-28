@@ -25,20 +25,18 @@ var standBtnEl = document.querySelector('.stand');
 var messageEl = document.getElementById('message');
 
 
-
 /*----- event listeners -----*/
-
 document.getElementById('inc-btn').addEventListener('click', function () {
-    if (bankroll < 5) return;
-    betAmount += 5;
-    bankroll -= 5;
+    if (bankroll < 10) return;
+    betAmount += 10;
+    bankroll -= 10;
     render();
 });
 
 document.getElementById('dec-btn').addEventListener('click', function () {
-    if (betAmount < 5) return;
-    betAmount -= 5;
-    bankroll += 5;
+    if (betAmount < 10) return;
+    betAmount -= 10;
+    bankroll += 10;
     render();
 });
 
@@ -65,14 +63,14 @@ function handleUpdateScore(diff, disabled) {
     }
     render();
 };
-function checkBlackJack(){
+function checkBlackJack() {
     if (playerSum === 21 && dealerSum === 21){
         winner = 'T';
         betAmount = 0;
         handInProgress = false;
     } else if (playerSum === 21) {
         blackjack = 'P';
-        bankroll  += ((bet * 1.5) + bet);
+        bankroll  += ((betAmount * 1.5) + betAmount);
         betAmount = 0;
         handInProgress = false;
     } else if (dealerSum === 21) {
@@ -105,8 +103,10 @@ function handleDeal() {
     shuffleDeck();
     handInProgress = true;
     winner = blackjack = null;
-    playerHand = shuffledDeck.splice(0, 2);
-    dealerHand = shuffledDeck.splice(0, 2);
+    playerHand = [];
+    dealerHand = [];
+    deal(playerHand, 2);
+    deal(dealerHand, 2);
     playerSum = computeHand(playerHand);
     dealerSum = computeHand(dealerHand);
     checkBlackJack();
@@ -206,4 +206,3 @@ function render() {
 };
 initialize();
 
-        //stand function correctly, 

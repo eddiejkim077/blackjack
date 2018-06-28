@@ -1,18 +1,17 @@
 h1 {
     text-align:center;
-
+    font-size: 20px;
 
 }
 
 body {
-    font-family: 'Rancho', cursive; 
+    font-family: 'Press Start 2P', cursive;
     background-color: green;
     color: white;
 
 }
 .player { 
     margin: 0 auto;
-    border:  solid white;
     width: 70%;
     height: 200px;
     text-align:center;
@@ -21,7 +20,6 @@ body {
 
 .dealer {
     margin: 0 auto;
-    border:  solid white;
     width: 70%;
     height: 200px;
     text-align:center;
@@ -29,11 +27,10 @@ body {
 }
 
 .between { 
-   width: 40%;
-   height: 200px;
+   width: 30%;
+   height: 290px;
    font-size: 20px;
    margin: 0 auto;
-
 }
 
 .bet-controls {
@@ -49,19 +46,63 @@ body {
 }
 .bankroll{
     text-align: center;
+    font-size: 20px;
 }
 #bet-amt{
     text-align:center;
     margin-top: 30px;
+    font-size: 20px;
 }
 
 #message {
     text-align: center;
     color: maroon;
 }
+#inc-btn {
+    background-color:green;
+    outline: none;
+    box-shadow: none;
+    border-radius: 50%;
+}
+#inc-img {
+    width: 70px;
+    height: 70px;
+    outline: none;
+}
+#dec-btn{
+    background-color:green;
+    outline: none;
+    box-shadow: none;
+    border-radius: 50%;
+}
 
+#dec-img{
+    width: 70px;
+    height: 70px;
+    outline: none;
+}
 
+.deal{
+    background-color: green;
+    border-radius: 50%;
+    outline: none; 
+}
 
+#deal-img{
+    width: 70px;
+    height: 70px;
+    outline: none;
+}
+
+#message{
+    font-size: 30px;
+
+}
+#heading{
+    font-size: 30px;
+    color:black;
+
+}
 /* Ice box: casino green table background  */
 
 /* inline block wrapped in div 
