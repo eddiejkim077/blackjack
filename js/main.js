@@ -7,6 +7,10 @@ var nameLookup = {
     'D': 'Dealer'
 };
 
+var chip = new Audio('https://freesound.org/data/previews/201/201805_3745836-lq.mp3');
+var hitSound = new Audio('https://freesound.org/data/previews/96/96127_1554918-lq.mp3');
+var pushSound = new Audio('https://freesound.org/data/previews/96/96129_1554918-lq.mp3');
+var blackjSound = new Audio('https://freesound.org/data/previews/341/341984_6101353-lq.mp3');
 /*----- app's state (variables) -----*/
 var bankroll, betAmount;
 var handInProgress, shuffledDeck, blackjack, winner;
@@ -24,12 +28,12 @@ var hitBtnEl = document.querySelector('.hit');
 var standBtnEl = document.querySelector('.stand');
 var messageEl = document.getElementById('message');
 
-
 /*----- event listeners -----*/
 document.getElementById('inc-btn').addEventListener('click', function () {
     if (bankroll < 10) return;
     betAmount += 10;
     bankroll -= 10;
+    chip.play();
     render();
 });
 
@@ -37,6 +41,7 @@ document.getElementById('dec-btn').addEventListener('click', function () {
     if (betAmount < 10) return;
     betAmount -= 10;
     bankroll += 10;
+    chip.play();
     render();
 });
 
@@ -53,6 +58,7 @@ function initialize() {
     bankroll = 1000;
     render();
 };
+
 function handleUpdateScore(diff, disabled) {
     betAmount += diff;
     if (betAmount < 0) {
@@ -63,22 +69,28 @@ function handleUpdateScore(diff, disabled) {
     }
     render();
 };
+
 function checkBlackJack() {
-    if (playerSum === 21 && dealerSum === 21){
+    if (playerSum === 21 && dealerSum === 21) {
         winner = 'T';
         betAmount = 0;
         handInProgress = false;
     } else if (playerSum === 21) {
         blackjack = 'P';
-        bankroll  += ((betAmount * 1.5) + betAmount);
+        bankroll += ((betAmount * 1.5) + betAmount);
         betAmount = 0;
         handInProgress = false;
+        blackjSound.play();
+        messageEl.className = 'blink_me';
+
     } else if (dealerSum === 21) {
         blackjack = 'D';
         handInProgress = false;
         betAmount = 0;
+        messageEl.className = 'blin     k_me';
     }
 };
+
 function buildMasterDeck() {
     var deck = [];
     suits.forEach(function (suit) {
@@ -91,6 +103,7 @@ function buildMasterDeck() {
     });
     return deck;
 };
+
 function shuffleDeck() {
     var tempDeck = masterDeck.slice();
     shuffledDeck = [];
@@ -98,7 +111,8 @@ function shuffleDeck() {
         var rndIdx = Math.floor(Math.random() * tempDeck.length);
         shuffledDeck.push(tempDeck.splice(rndIdx, 1)[0]);
     }
-}
+};
+
 function handleDeal() {
     shuffleDeck();
     handInProgress = true;
@@ -112,6 +126,7 @@ function handleDeal() {
     checkBlackJack();
     render();
 };
+
 function handleHit() {
     deal(playerHand, 1);
     playerSum = computeHand(playerHand);
@@ -121,7 +136,9 @@ function handleHit() {
         betAmount = 0;
     }
     render();
+    hitSound.play();
 };
+
 function handleStand() {
     handInProgress = false;
     dealerPlay();
@@ -130,6 +147,7 @@ function handleStand() {
     if (playerSum === dealerSum) {
         winner = 'T';
         bankroll += betAmount;
+        pushSound.play();
     } else if (dealerSum > playerSum && dealerSum < 22) {
         winner = 'D';
     } else {
@@ -139,14 +157,17 @@ function handleStand() {
     betAmount = 0;
     render();
 };
+
 function dealerPlay() {
     while (computeHand(dealerHand) < 17) {
         deal(dealerHand, 1);
     }
 };
+
 function deal(hand, numCards) {
     hand.push(...shuffledDeck.splice(0, numCards));
 };
+
 function computeHand(hand) {
     var sum = 0;
     var aces = 0;
@@ -164,6 +185,7 @@ function computeHand(hand) {
     }
     return sum;
 };
+
 function renderHands() {
     if (!playerHand) {
         return;
@@ -182,6 +204,7 @@ function renderHands() {
     }, '');
     dealerCardsEl.innerHTML = cardsHtml;
 };
+
 function render() {
     betEl.textContent = betAmount;
     bankrollEl.textContent = bankroll;
@@ -196,13 +219,16 @@ function render() {
         if (winner === 'T') {
             messageEl.textContent = `Push!`;
             messageEl.style.color = 'purple';
+            
         } else {
             messageEl.textContent = `${nameLookup[winner]} Wins!`;
-            messageEl.style.color = winner === 'P' ? 'yellow' : 'maroon';
-        } 
+            messageEl.style.color = winner === 'P' ? 'gold' : 'red';
+
+        }
     } else {
         messageEl.textContent = '';
     }
 };
+
 initialize();
 
