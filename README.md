@@ -4,7 +4,7 @@
 ### Basics
 A player's main objective is to beat the dealer with the cards given. A player must also not "bust" or go over the allowed amount of 21. If a player does not bust with the given hand they have the opportunity to outscore the dealer. A dealer must also not go over 21. 21 is **BLACKJACK**.
 
-### Card value
+### Card Value
 An Ace counts as 1 or 11.
 
 10, Jack, Queen, King counts as 10.
@@ -12,7 +12,7 @@ An Ace counts as 1 or 11.
 2-9 counts as face value. 
 
 
-###How to play
+###How To Play
 1. All players will have to place a bet.
 2. The dealer will give two cards to each person at the table and two cards to themselves. With 1 card faced down, and 1 card faced up.
 3. If the dealer is showing an Ace they will ask for insurance. 
@@ -28,3 +28,24 @@ An Ace counts as 1 or 11.
 13. If the dealer has 16 or less they will have to draw another card until they reach 17 or over. 
 14. If the dealer goes over 21, all the players remaining for that deal will win their bet back. 
 15. If the dealer does not bust, then any player that has a higher value in cards will win. 
+
+
+###Game Screenshot
+
+![alt text](https://i.imgur.com/YrR2tvC.png)
+
+
+###Technologies Used
+
+
+Html, Css, Javascript
+
+
+
+###Getting Started
+
+
+[PLAY](https://eddiejkim077.github.io/blackjack/)
+
+###Next Steps
+The next steps are adding a double down, and split feature. 
