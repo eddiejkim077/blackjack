@@ -9,8 +9,11 @@ var nameLookup = {
 
 var chip = new Audio('https://freesound.org/data/previews/201/201805_3745836-lq.mp3');
 var hitSound = new Audio('https://freesound.org/data/previews/96/96127_1554918-lq.mp3');
-var pushSound = new Audio('https://freesound.org/data/previews/96/96129_1554918-lq.mp3');
+var loseSound = new Audio('https://freesound.org/data/previews/96/96129_1554918-lq.mp3');
 var blackjSound = new Audio('https://freesound.org/data/previews/341/341984_6101353-lq.mp3');
+var winSound = new Audio('https://freesound.org/data/previews/140/140382_2289019-lq.mp3');
+var dblackjSound = new Audio('https://freesound.org/data/previews/253/253174_4404552-lq.mp3');
+var pushSound = new Audio('https://freesound.org/data/previews/240/240776_4107740-lq.mp3');
 /*----- app's state (variables) -----*/
 var bankroll, betAmount;
 var handInProgress, shuffledDeck, blackjack, winner;
@@ -75,19 +78,19 @@ function checkBlackJack() {
         winner = 'T';
         betAmount = 0;
         handInProgress = false;
+        pushSound.play();
     } else if (playerSum === 21) {
         blackjack = 'P';
         bankroll += ((betAmount * 1.5) + betAmount);
         betAmount = 0;
         handInProgress = false;
         blackjSound.play();
-        messageEl.className = 'blink_me';
-
+        messageEl.className = "blink_me";
     } else if (dealerSum === 21) {
         blackjack = 'D';
         handInProgress = false;
         betAmount = 0;
-        messageEl.className = 'blin     k_me';
+        dblackjSound.play();
     }
 };
 
@@ -150,9 +153,11 @@ function handleStand() {
         pushSound.play();
     } else if (dealerSum > playerSum && dealerSum < 22) {
         winner = 'D';
+        loseSound.play();
     } else {
         winner = 'P';
         bankroll += betAmount * 2;
+        winSound.play();
     }
     betAmount = 0;
     render();
@@ -218,8 +223,7 @@ function render() {
     } else if (winner) {
         if (winner === 'T') {
             messageEl.textContent = `Push!`;
-            messageEl.style.color = 'purple';
-            
+            messageEl.style.color = 'white';
         } else {
             messageEl.textContent = `${nameLookup[winner]} Wins!`;
             messageEl.style.color = winner === 'P' ? 'gold' : 'red';
@@ -227,6 +231,7 @@ function render() {
         }
     } else {
         messageEl.textContent = '';
+        messageEl.className = '';
     }
 };
 
