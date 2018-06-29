@@ -12,7 +12,7 @@ An Ace counts as 1 or 11.
 2-9 counts as face value. 
 
 
-###How To Play
+### How To Play
 1. All players will have to place a bet.
 2. The dealer will give two cards to each person at the table and two cards to themselves. With 1 card faced down, and 1 card faced up.
 3. If the dealer is showing an Ace they will ask for insurance. 
@@ -30,22 +30,22 @@ An Ace counts as 1 or 11.
 15. If the dealer does not bust, then any player that has a higher value in cards will win. 
 
 
-###Game Screenshot
+### Game Screenshot
 
 ![alt text](https://i.imgur.com/YrR2tvC.png)
 
 
-###Technologies Used
+### Technologies Used
 
 
 Html, Css, Javascript
 
 
 
-###Getting Started
+### Getting Started
 
 
 [PLAY](https://eddiejkim077.github.io/blackjack/)
 
-###Next Steps
+### Next Steps
 The next steps are adding a double down, and split feature. 
